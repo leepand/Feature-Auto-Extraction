@@ -588,6 +588,30 @@ void ExtractModel(FILE * fp){
     ifs.close();
     ofs.close();
 
+    string fid_path(out_file);
+    fid_path += ".fid";
+    ofstream ofs_fid(fid_path.c_str());
+    if(!ofs_fid.is_open()){
+        cout << "open output fid file failed:" << fid_path << endl;
+    }
+    //map<string, int> g_mapFids;//<featurename, fid>
+    for(auto & it: g_mapFids){
+        ofs_fid << it.first << " " << it.second << endl;
+    }
+    ofs_fid.close();
+
+    string uid_path(out_file);
+    uid_path += ".uid";
+    ofstream ofs_uid(uid_path.c_str());
+    if(!ofs_uid.is_open()){
+        cout << "open output uid file failed:" << uid_path << endl;
+    }
+    //    map<string, int> g_mapUids;//<cookie, uid>
+    for(auto & it: g_mapUids){
+        ofs_uid << it.first << " " << it.second << endl;
+    }
+    ofs_uid.close();
+
     if(debug_mode >= 2){
         ////map<uid, map<featureid, value>>
         cout << "g_mapResFeatures:" << endl;
